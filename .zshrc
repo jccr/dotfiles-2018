@@ -13,7 +13,11 @@ export ANDROID_HOME=/Users/juanc/Library/Android/sdk
 export JAVA_HOME=$(/usr/libexec/java_home)
 
 # == CUSTOM STUFF == #
+# TODO: move to .zprofile
 
+export EDITOR=vim
+
+# Pre-prompt new line
 precmd() { print "" }
 
 . /usr/local/etc/profile.d/z.sh
