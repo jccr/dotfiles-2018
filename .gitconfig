@@ -10,7 +10,7 @@
 	trustExitCode = true
 [user]
 	name = Juan Corona
-	email = juanc@evidentpoint.com
+	email = juan.carlos.corona.r@gmail.com
 [commit]
 	template = /Users/juanc/.stCommitMsg
 [filter "lfs"]
