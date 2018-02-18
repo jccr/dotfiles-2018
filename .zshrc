@@ -8,7 +8,7 @@ fi
 
 # == ENV VARS & PATH == #
 
-export PATH=~/.rbenv/bin:$PATH
+export PATH=~/.local/bin~/.rbenv/bin:$PATH
 export ANDROID_HOME=/Users/juanc/Library/Android/sdk
 export JAVA_HOME=$(/usr/libexec/java_home)
 
