@@ -20,7 +20,7 @@ export EDITOR=vim
 # Pre-prompt new line
 precmd() { print "" }
 
-. /usr/local/etc/profile.d/z.sh
+. ~/.local/bin/z.sh
 
 eval "$(command rbenv init - --no-rehash)"
 
