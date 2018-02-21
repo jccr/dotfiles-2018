@@ -1,0 +1,9 @@
+#!/bin/sh
+
+# ** macOS only! **
+# Assumes you already have the following installed:
+# brew, node, npm, rbenv
+
+# == CLI TOOLS ==
+brew install ccat
+

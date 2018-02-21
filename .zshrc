@@ -16,6 +16,7 @@ export JAVA_HOME=$(/usr/libexec/java_home)
 # TODO: move to .zprofile
 
 export EDITOR=vim
+alias cat=ccat
 
 # Pre-prompt new line
 precmd() { print "" }
