@@ -1,0 +1,2 @@
+#!/bin/sh
+rsync -r --exclude 'sync' --exclude 'setup'  --exclude '.git' ./ ~

@@ -6,29 +6,31 @@ if [[ "$PROFILE_STARTUP" == true ]]; then
     setopt xtrace prompt_subst
 fi
 
-# == ENV VARS & PATH == #
+# ==> ENV VARS & PATH
+export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/.rbenv/bin:$PATH"
+export NVM_DIR="$HOME/.nvm"
+export ANDROID_HOME="$HOME/Android/Sdk"
+# <==
 
-export PATH=~/.local/bin:~/.rbenv/bin:$PATH
-export ANDROID_HOME=/Users/juanc/Library/Android/sdk
-export JAVA_HOME=$(/usr/libexec/java_home)
-
-# == CUSTOM STUFF == #
-# TODO: move to .zprofile
-
+# ==> CUSTOM STUFF
 export EDITOR=vim
 alias cat=ccat
 
 # Pre-prompt new line
 precmd() { print "" }
+# <==
 
-. ~/.local/bin/z.sh
+# Load nvm
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 
+# Load rbenv
 eval "$(command rbenv init - --no-rehash)"
 
 # == ZGEN BEGIN == #
-
+ 
 # fix prompt
-export LC_CTYPE=en_US.UTF-8
+export LC_CTYPE=en_US.UTF-
 
 # Load zgen only if a user types a zgen command
 zgen () {
@@ -57,7 +59,31 @@ if ! zgen saved; then
   zgen save
 fi
 
-test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+# Post init for nvm
+autoload -U add-zsh-hook
+load-nvmrc() {
+  local node_version="$(nvm version)"
+  local nvmrc_path="$(nvm_find_nvmrc)"
+
+  if [ -n "$nvmrc_path" ]; then
+    local nvmrc_node_version=$(nvm version "$(cat "${nvmrc_path}")")
+
+    if [ "$nvmrc_node_version" = "N/A" ]; then
+      nvm install
+    elif [ "$nvmrc_node_version" != "$node_version" ]; then
+      nvm use
+    fi
+  elif [ "$node_version" != "$(nvm version default)" ]; then
+    echo "Reverting to nvm default version"
+    nvm use default
+  fi
+}
+add-zsh-hook chpwd load-nvmrc
+load-nvmrc
+
+# == ZGEN END == #
+
+test -e "${HOME}/.config.zsh" && source "${HOME}/.config.zsh"
 
 if [[ "$PROFILE_STARTUP" == true ]]; then
     unsetopt xtrace
